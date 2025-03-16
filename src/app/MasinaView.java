@@ -25,6 +25,8 @@ public class MasinaView {
     }
 
 
+
+
     public void play(){
         boolean running = true;
         this.masinaService.load();
@@ -89,5 +91,26 @@ public class MasinaView {
     }
     public void pretCrescator(){
         this.masinaService.pretCrescator();
+    }
+    public void addCar(){
+
+        System.out.println("Introduceti detaliile masini cu , intre ele: marca,culoare,an,rulata,pret");
+
+        String prop=scanner.nextLine();
+        String[]cuvinte=prop.split(",");
+        Masina m=this.masinaService.getMasinaByColorAndMarca(cuvinte[0],cuvinte[1]);
+
+        if(m!=null){
+            //todo:mesaj
+            return;
+        }
+
+        //todo:adaugare
+
+
+
+
+
+
     }
 }
