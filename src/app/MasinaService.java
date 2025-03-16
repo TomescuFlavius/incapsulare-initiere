@@ -77,8 +77,6 @@ public class MasinaService {
 
         return pretMax;
     }
-
-
     //metoda ce returneaza bmw uri
     public void afisareBMW() {
         Masina BMW = masini.get(0);
@@ -88,8 +86,6 @@ public class MasinaService {
             }
         }
     }
-
-
     public void afisarePorsche() {
         Masina Porsche = masini.get(0);
         for (int i = 0; i < masini.size(); i++) {
@@ -98,8 +94,6 @@ public class MasinaService {
             }
         }
     }
-
-
     public void pretDescrescator() {
         for (int i = 0; i < masini.size() - 1; i++) {
             for (int j = i + 1; j < masini.size(); j++) {
@@ -114,8 +108,6 @@ public class MasinaService {
             System.out.println(masini.get(i).descriere());
         }
     }
-
-
     public Masina ceaMaiIeftina() {
         Masina pretMin = masini.get(0);
         for (int i = 1; i < masini.size(); i++) {
@@ -125,8 +117,6 @@ public class MasinaService {
         }
         return pretMin;
     }
-
-
     public void pretCrescator() {
 
         for (int i = 0; i < masini.size() - 1; i++) {
@@ -142,7 +132,6 @@ public class MasinaService {
             System.out.println(masini.get(i).descriere());
         }
     }
-
     //todo:ce:unicitae
     public Masina getMasinaByColorAndMarca(String marca,String color) {
         for (int i = 0; i < masini.size(); i++) {
@@ -177,15 +166,12 @@ public class MasinaService {
     }
     public int generateId(){
         int id=generareNumar();
-        while (getMasinaById(id) != null) {
+        while (getMasinaById(id) == null) {
             id=generareNumar();
         }
         return id;
     }
-
-
     //todo:functie de adaugare
-
     public boolean addCar(String marca,String color, int year, boolean rulata, double pret){
         Masina m=this.getMasinaByColorAndMarca(color,marca);
         if(m!=null) {
@@ -193,7 +179,7 @@ public class MasinaService {
         }
         int id=generateId();
         Masina mas= new Masina();
-        mas.id=generateId();
+        mas.id=id;
         mas.marca=marca;
         mas.color=color;
         mas.pret= pret;
