@@ -19,6 +19,7 @@ public class MasinaView {
         System.out.println("7->masinile in ordine crescatoare in functie de pret");
 
         //todo:crud create read update delete
+        //todo:manaeger de filtrari
 
 
     }
