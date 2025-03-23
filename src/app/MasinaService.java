@@ -34,9 +34,9 @@ public class MasinaService {
         Masina m4 = new Masina();
         m4.id = 4;
         m4.color = "rosu";
-        m4.marca = "Volkswagen";
+        m4.marca = "BMW";
         m4.pret = 6000;
-        m4.rulata = true;
+        m4.rulata = false;
         m4.year = 2009;
         Masina m5 = new Masina();
         m5.id = 5;
@@ -77,6 +77,7 @@ public class MasinaService {
 
         return pretMax;
     }
+
     //metoda ce returneaza bmw uri
     public void afisareBMW() {
         Masina BMW = masini.get(0);
@@ -86,6 +87,7 @@ public class MasinaService {
             }
         }
     }
+
     public void afisarePorsche() {
         Masina Porsche = masini.get(0);
         for (int i = 0; i < masini.size(); i++) {
@@ -94,6 +96,7 @@ public class MasinaService {
             }
         }
     }
+
     public void pretDescrescator() {
         for (int i = 0; i < masini.size() - 1; i++) {
             for (int j = i + 1; j < masini.size(); j++) {
@@ -108,6 +111,7 @@ public class MasinaService {
             System.out.println(masini.get(i).descriere());
         }
     }
+
     public Masina ceaMaiIeftina() {
         Masina pretMin = masini.get(0);
         for (int i = 1; i < masini.size(); i++) {
@@ -117,6 +121,7 @@ public class MasinaService {
         }
         return pretMin;
     }
+
     public void pretCrescator() {
 
         for (int i = 0; i < masini.size() - 1; i++) {
@@ -132,59 +137,65 @@ public class MasinaService {
             System.out.println(masini.get(i).descriere());
         }
     }
-    //todo:ce:unicitae
-    public Masina getMasinaByColorAndMarca(String marca,String color) {
-        for (int i = 0; i < masini.size(); i++) {
-            if(masini.get(i).marca.equals(marca) && masini.get(i).color.equals(color)) {
-               return masini.get(i);
-            }
-        }
-        return null;
-    }
-    //todo:functei ce genereaza un id unic
-    public Masina getMasinaById(int id){
-        for (int i = 0; i < masini.size(); i++) {
-            if(id != masini.get(i).id) {
-              return masini.get(i);
-            }
-        }
-        return null;
-    }
-    public int maxId(){
 
-        int maxId=0;
+    //todo:ce:unicitae
+    public Masina getMasinaByColorAndMarca(String marca, String color) {
         for (int i = 0; i < masini.size(); i++) {
-            if(masini.get(i).id > maxId) {
-                maxId=masini.get(i).id;
+            if (masini.get(i).marca.equals(marca) && masini.get(i).color.equals(color)) {
+                return masini.get(i);
+            }
+        }
+        return null;
+    }
+
+    //todo:functei ce genereaza un id unic
+    public Masina getMasinaById(int id) {
+        for (int i = 0; i < masini.size(); i++) {
+            if (id == masini.get(i).id) {
+                return masini.get(i);
+            }
+        }
+        return null;
+    }
+
+    public int maxId() {
+
+        int maxId = 0;
+        for (int i = 0; i < masini.size(); i++) {
+            if (masini.get(i).id > maxId) {
+                maxId = masini.get(i).id;
             }
         }
         return maxId;
     }
-    public int generareNumar(){
+
+    public int generareNumar() {
         Random r = new Random();
-        return r.nextInt(1000)+maxId();
+        return r.nextInt(1000) + maxId();
     }
-    public int generateId(){
-        int id=generareNumar();
+
+    public int generateId() {
+        int id = generareNumar();
         while (getMasinaById(id) == null) {
-            id=generareNumar();
+            id = generareNumar();
         }
         return id;
     }
+
     //todo:functie de adaugare
-    public boolean addCar(String marca,String color, int year, boolean rulata, double pret){
-        Masina m=this.getMasinaByColorAndMarca(color,marca);
-        if(m!=null) {
+    public boolean addCar(String marca, String color, int year, boolean rulata, double pret) {
+        Masina m = this.getMasinaByColorAndMarca(color, marca);
+        if (m != null) {
             return false;
         }
-        int id=generateId();
-        Masina mas= new Masina();
-        mas.id=id;
-        mas.marca=marca;
-        mas.color=color;
-        mas.pret= pret;
-        mas.rulata=rulata;
-        mas.year=year;
+        int id = generateId();
+        Masina mas = new Masina();
+        mas.id = id;
+        mas.marca = marca;
+        mas.color = color;
+        mas.pret = pret;
+        mas.rulata = rulata;
+        mas.year = year;
         this.masini.add(mas);
 
         return true;
@@ -199,6 +210,7 @@ public class MasinaService {
         }
         return false;
     }
+
     public boolean updateCar(int id, String marca, String color, int year, boolean rulata, double pret) {
         Masina masina = getMasinaById(id);
 
@@ -215,13 +227,66 @@ public class MasinaService {
         return true;
     }
 
-    public boolean filtrariMarca(String marca) {
+    public List<Masina> filtrariMarca(String marca) {
 
+        List<Masina> filtrMas = new ArrayList<>();
         for (int i = 0; i < masini.size(); i++) {
-            if(marca.equals(masini.get(i).marca)) {
-                return true;
+            if (marca.equals(masini.get(i).marca)) {
+                filtrMas.add(this.masini.get(i));
             }
         }
-        return false;
+        return filtrMas;
+    }
+
+    public List<Masina> filtrariPret(int pretMin,int pretMax) {
+        List<Masina> filtrMas = new ArrayList<>();
+        for (int i = 0; i < masini.size(); i++) {
+            if (masini.get(i).pret > pretMin && masini.get(i).pret <= pretMax) {
+                filtrMas.add(this.masini.get(i));
+            }
+        }
+        return filtrMas;
+    }
+
+    public List<Masina> filtarariRulata() {
+        List<Masina> filtrMas = new ArrayList<>();
+        for (int i = 0; i < masini.size(); i++) {
+            if (masini.get(i).rulata) {
+                filtrMas.add(this.masini.get(i));
+            }
+        }
+        return filtrMas;
+    }
+
+
+
+    //todo: functie ce returneaza intersectia dintre 2 liste
+
+    public List<Masina> intersectieListe(List<Masina> lista1, List<Masina> lista2) {
+
+        List<Masina> comune = new ArrayList<>();
+        for (int i = 0; i < lista1.size(); i++) {
+
+            if (lista2.contains(lista1.get(i))) {
+
+                comune.add(lista1.get(i));
+            }
+        }
+        return comune;
+    }
+
+    public List<Masina> filtrare(Filtru filtru) {
+        List<Masina> comune = new ArrayList<>();
+        comune.addAll(this.masini);
+        if (filtru.marca.length() > 0) {
+            comune = intersectieListe(comune, filtrariMarca(filtru.marca));
+        }
+        if(filtru.pretMin>=0&&filtru.pretMax>=0){
+            comune=intersectieListe(comune,filtrariPret(filtru.pretMin,filtru.pretMax));
+        }
+        if (filtru.rulata)
+            comune = intersectieListe(comune, filtarariRulata());
+        return comune;
+
     }
 }

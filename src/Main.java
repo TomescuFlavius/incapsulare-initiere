@@ -13,8 +13,13 @@ public class Main {
 
         Masina masina = new Masina();
         MasinaView view = new MasinaView();
-    MasinaService service = new MasinaService();
-        System.out.println(masina.descriere());
+        MasinaService service = new MasinaService();
+
         view.play();
+
+
+
     }
+
+
 }

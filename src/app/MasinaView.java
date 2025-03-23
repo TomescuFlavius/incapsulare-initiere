@@ -1,6 +1,8 @@
 package app;
 
 import java.net.IDN;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MasinaView {
@@ -21,6 +23,8 @@ public class MasinaView {
         System.out.println("8->adauga masina");
         System.out.println("9->elimina masina");
         System.out.println("10->update masina dupa Id");
+        System.out.println("11->lista dupa marca selectata");
+        System.out.println("12-> filtrare detaliata");
         //todo:crud create read update delete
         //todo:manaeger de filtrari
 
@@ -65,6 +69,12 @@ public class MasinaView {
                     break;
                 case 10:
                     this.updateCar();
+                    break;
+                case 11:
+                    this.filtrareMarca();
+                    break;
+                case 12:
+                    this.filtrareDetaliata();
                     break;
                 default:
                     System.out.println("Alegere invalida");
@@ -171,16 +181,39 @@ public class MasinaView {
         );
 
         if (!updated) {
-            System.out.println("Eroare la actualizare! ID-ul nu există.");
+            System.out.println("Eroare la actualizare! ID-ul nu exista.");
             return;
         }
 
-        System.out.println("Mașina a fost actualizată cu succes!");
+        System.out.println("Mașina a fost actualizata cu succes!");
     }
-    public void filtrareMarca(){
+    public void filtrareMarca() {
         System.out.println("Marca care te intereseaza:");
-        String mar = scanner.nextLine();
+        String marca = scanner.nextLine();
+
+        List<Masina>masini=this.masinaService.filtrariMarca(marca);
+
+
+        for (Masina m : masini) {
+            System.out.println(m.descriere());
+        }
+
 
     }
+    public void filtrareDetaliata(){
 
+
+        Filtru filtru= new Filtru();
+
+        filtru.marca="BMW";
+        filtru.rulata=true;
+
+        List<Masina> masini=this.masinaService.filtrare(filtru);
+
+        for (Masina m : masini) {
+            System.out.println(m.descriere());
+        }
+
+
+    }
 }
