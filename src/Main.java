@@ -11,9 +11,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-
+        Masina masina = new Masina();
         MasinaView view = new MasinaView();
-
+    MasinaService service = new MasinaService();
+        System.out.println(masina.descriere());
         view.play();
     }
 }

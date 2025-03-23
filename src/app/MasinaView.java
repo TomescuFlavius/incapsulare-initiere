@@ -1,5 +1,6 @@
 package app;
 
+import java.net.IDN;
 import java.util.Scanner;
 
 public class MasinaView {
@@ -18,6 +19,8 @@ public class MasinaView {
         System.out.println("6->cea mai ieftina masina");
         System.out.println("7->masinile in ordine crescatoare in functie de pret");
         System.out.println("8->adauga masina");
+        System.out.println("9->elimina masina");
+        System.out.println("10->update masina dupa Id");
         //todo:crud create read update delete
         //todo:manaeger de filtrari
 
@@ -56,6 +59,12 @@ public class MasinaView {
                     break;
                 case 8:
                     this.addCar();
+                    break;
+                case 9:
+                    this.removeCar();
+                    break;
+                case 10:
+                    this.updateCar();
                     break;
                 default:
                     System.out.println("Alegere invalida");
@@ -132,4 +141,46 @@ public class MasinaView {
 
 
     }
+
+    public void removeCar() {
+        System.out.println("Introdu ID-ul masinii pe care vrei sa o elimini:");
+        int id = Integer.parseInt(scanner.nextLine());
+        Boolean removedCar = this.masinaService.removeCar(id);
+        if (!removedCar) {
+            System.out.println("Eroare la eliminare");
+            return;
+        }
+        System.out.println("Masina a fost  eliminata cu succes");
+    }
+
+    public void updateCar() {
+        System.out.println("Introdu ID-ul mașinii pe care vrei să o actualizezi:");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Introdu noile detalii separate prin virgula: marca, culoare, an, rulata, pret");
+        String prop = scanner.nextLine();
+        String[] cuvinte = prop.split(",");
+
+        boolean updated = this.masinaService.updateCar(
+                id,
+                cuvinte[0],
+                cuvinte[1],
+                Integer.parseInt(cuvinte[2]),
+                Boolean.parseBoolean(cuvinte[3]),
+                Double.parseDouble(cuvinte[4])
+        );
+
+        if (!updated) {
+            System.out.println("Eroare la actualizare! ID-ul nu există.");
+            return;
+        }
+
+        System.out.println("Mașina a fost actualizată cu succes!");
+    }
+    public void filtrareMarca(){
+        System.out.println("Marca care te intereseaza:");
+        String mar = scanner.nextLine();
+
+    }
+
 }

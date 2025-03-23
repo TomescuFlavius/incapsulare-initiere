@@ -189,4 +189,39 @@ public class MasinaService {
 
         return true;
     }
+
+    public boolean removeCar(int ID) {
+        for (int i = 0; i < masini.size(); i++) {
+            if (masini.get(i).id == ID) {
+                masini.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean updateCar(int id, String marca, String color, int year, boolean rulata, double pret) {
+        Masina masina = getMasinaById(id);
+
+        if (masina == null) {
+            return false;
+        }
+
+        masina.marca = marca;
+        masina.color = color;
+        masina.year = year;
+        masina.rulata = rulata;
+        masina.pret = pret;
+
+        return true;
+    }
+
+    public boolean filtrariMarca(String marca) {
+
+        for (int i = 0; i < masini.size(); i++) {
+            if(marca.equals(masini.get(i).marca)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
