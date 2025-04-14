@@ -44,40 +44,37 @@ public class MasinaView {
             int alegere = Integer.parseInt(scanner.nextLine());
             switch (alegere) {
                 case 1:
-                    this.afisareMasini();
+                    this.masinaService.addMasina(5, "Ferarri", "alb", 2025, true, 230000);
                     break;
                 case 2:
-                    this.afisareCeaMaiScumpaMasina();
+                    this.masinaService.ceaMaiScumpa();
                     break;
                 case 3:
-                    this.afisareBMW();
+                    this.masinaService.afisareBMW();
                     break;
                 case 4:
-                    this.afisarePorsche();
+                    this.masinaService.afisarePorsche();
                     break;
                 case 5:
-                    this.pretDescrescator();
+                    this.masinaService.pretDescrescator();
                     break;
                 case 6:
-                    this.afisareCeaMaiIeftinaMasina();
+                    this.masinaService.ceaMaiIeftina();
                     break;
                 case 7:
-                    this.pretCrescator();
+                    this.masinaService.pretCrescator();
                     break;
                 case 8:
-                    this.addCar();
+                    this.masinaService.addMasina(7,"Ferarri","alb",2025,false,230000);
                     break;
                 case 9:
-                    this.removeCar();
-                    break;
-                case 10:
-                    this.updateCar();
+                    this.masinaService.removeCar(1);
                     break;
                 case 11:
-                    this.filtrareMarca();
+                    this.masinaService.filtrariMarca("porsche");
                     break;
                 case 12:
-                    this.filtrareDetaliata();
+                    this.masinaService.filtrare(Filtru);
                     break;
                 default:
                     System.out.println("Alegere invalida");

@@ -33,20 +33,55 @@ public class Masina {
         this.rulata = Boolean.parseBoolean(text.split(",")[4]);
         this.pret = Double.parseDouble(text.split(",")[5]);
     }
-
-
-    //metode
     public String descriere(){
-        String text1="";
-        text1+="Id : "+this.id+",";
-        text1+="Marca : "+this.marca+",";
-        text1+="Color : "+this.color+",";
-        text1+="Year : "+this.year+",";
-        text1+="Rulata : "+this.rulata+",";
-        text1+="Pret : "+this.pret+",";
-        return text1;
+        return marca + "," + color + "," + year + "," + rulata + "," + pret;
+    }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public boolean isRulata() {
+        return rulata;
+    }
+
+    public void setRulata(boolean rulata) {
+        this.rulata = rulata;
+    }
+
+    public double getPret() {
+        return pret;
+    }
+
+    public void setPret(double pret) {
+        this.pret = pret;
     }
 }

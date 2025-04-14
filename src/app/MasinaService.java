@@ -43,7 +43,7 @@ public class MasinaService {
     public Masina ceaMaiScumpa() {
         Masina pretMax = masini.getFirst();
         for (int i = 0; i < masini.size(); i++) {
-            if (masini.get(i).pret > pretMax.pret) {
+            if (masini.get(i).getPret() > pretMax.getPret()) {
                 pretMax = masini.get(i);
             }
         }
@@ -55,7 +55,7 @@ public class MasinaService {
     public void afisareBMW() {
         Masina BMW = masini.get(0);
         for (int i = 0; i < masini.size(); i++) {
-            if (masini.get(i).marca.equals("BMW")) {
+            if (masini.get(i).getMarca().equals("BMW")) {
                 System.out.println(this.masini.get(i).descriere());
             }
         }
@@ -64,7 +64,7 @@ public class MasinaService {
     public void afisarePorsche() {
         Masina Porsche = masini.get(0);
         for (int i = 0; i < masini.size(); i++) {
-            if (masini.get(i).marca.equals("Porsche")) {
+            if (masini.get(i).getMarca().equals("Porsche")) {
                 System.out.println(this.masini.get(i).descriere());
             }
         }
@@ -73,7 +73,7 @@ public class MasinaService {
     public void pretDescrescator() {
         for (int i = 0; i < masini.size() - 1; i++) {
             for (int j = i + 1; j < masini.size(); j++) {
-                if (masini.get(i).pret < masini.get(j).pret) {
+                if (masini.get(i).getPret() < masini.get(j).getPret()) {
                     Masina Temp = masini.get(i);
                     masini.set(i, masini.get(j));
                     masini.set(j, Temp);
@@ -88,7 +88,7 @@ public class MasinaService {
     public Masina ceaMaiIeftina() {
         Masina pretMin = masini.get(0);
         for (int i = 1; i < masini.size(); i++) {
-            if (masini.get(i).pret < pretMin.pret) {
+            if (masini.get(i).getPret() < pretMin.getPret()) {
                 pretMin = masini.get(i);
             }
         }
@@ -99,7 +99,7 @@ public class MasinaService {
 
         for (int i = 0; i < masini.size() - 1; i++) {
             for (int j = 0; j < masini.size() - i - 1; j++) {
-                if (masini.get(j).pret > masini.get(j + 1).pret) {
+                if (masini.get(j).getPret() > masini.get(j + 1).getPret()) {
                     Masina temp = masini.get(j);
                     masini.set(j, masini.get(j + 1));
                     masini.set(j + 1, temp);
@@ -114,7 +114,7 @@ public class MasinaService {
     //todo:ce:unicitae
     public Masina getMasinaByColorAndMarca(String marca, String color) {
         for (int i = 0; i < masini.size(); i++) {
-            if (masini.get(i).marca.equals(marca) && masini.get(i).color.equals(color)) {
+            if (masini.get(i).getMarca().equals(marca) && masini.get(i).getColor().equals(color)) {
                 return masini.get(i);
             }
         }
@@ -124,7 +124,7 @@ public class MasinaService {
     //todo:functei ce genereaza un id unic
     public Masina getMasinaById(int id) {
         for (int i = 0; i < masini.size(); i++) {
-            if (id == masini.get(i).id) {
+            if (id == masini.get(i).getId()) {
                 return masini.get(i);
             }
         }
@@ -135,8 +135,8 @@ public class MasinaService {
 
         int maxId = 0;
         for (int i = 0; i < masini.size(); i++) {
-            if (masini.get(i).id > maxId) {
-                maxId = masini.get(i).id;
+            if (masini.get(i).getId() > maxId) {
+                maxId = masini.get(i).getId();
             }
         }
         return maxId;
@@ -155,28 +155,10 @@ public class MasinaService {
         return id;
     }
 
-    //todo:functie de adaugare
-    public boolean addCar(String marca, String color, int year, boolean rulata, double pret) {
-        Masina m = this.getMasinaByColorAndMarca(color, marca);
-        if (m != null) {
-            return false;
-        }
-        int id = generateId();
-        Masina mas = new Masina();
-        mas.id = id;
-        mas.marca = marca;
-        mas.color = color;
-        mas.pret = pret;
-        mas.rulata = rulata;
-        mas.year = year;
-        this.masini.add(mas);
-
-        return true;
-    }
 
     public boolean removeCar(int ID) {
         for (int i = 0; i < masini.size(); i++) {
-            if (masini.get(i).id == ID) {
+            if (masini.get(i).getId() == ID) {
                 masini.remove(i);
                 return true;
             }
@@ -184,27 +166,27 @@ public class MasinaService {
         return false;
     }
 
-    public boolean updateCar(int id, String marca, String color, int year, boolean rulata, double pret) {
-        Masina masina = getMasinaById(id);
-
-        if (masina == null) {
-            return false;
-        }
-
-        masina.marca = marca;
-        masina.color = color;
-        masina.year = year;
-        masina.rulata = rulata;
-        masina.pret = pret;
-
-        return true;
-    }
+//    public boolean updateCar(int id, String marca, String color, int year, boolean rulata, double pret) {
+//        Masina masina = getMasinaById(id);
+//
+//        if (masina == null) {
+//            return false;
+//        }
+//
+//        masina.get = marca;
+//        masina.color = color;
+//        masina.year = year;
+//        masina.rulata = rulata;
+//        masina.pret = pret;
+//
+//        return true;
+//    }
 
     public List<Masina> filtrariMarca(String marca) {
 
         List<Masina> filtrMas = new ArrayList<>();
         for (int i = 0; i < masini.size(); i++) {
-            if (marca.equals(masini.get(i).marca)) {
+            if (marca.equals(masini.get(i).getMarca())) {
                 filtrMas.add(this.masini.get(i));
             }
         }
@@ -214,7 +196,7 @@ public class MasinaService {
     public List<Masina> filtrariPret(int pretMin,int pretMax) {
         List<Masina> filtrMas = new ArrayList<>();
         for (int i = 0; i < masini.size(); i++) {
-            if (masini.get(i).pret > pretMin && masini.get(i).pret <= pretMax) {
+            if (masini.get(i).getPret() > pretMin && masini.get(i).getPret() <= pretMax) {
                 filtrMas.add(this.masini.get(i));
             }
         }
@@ -224,7 +206,7 @@ public class MasinaService {
     public List<Masina> filtarariRulata() {
         List<Masina> filtrMas = new ArrayList<>();
         for (int i = 0; i < masini.size(); i++) {
-            if (masini.get(i).rulata) {
+            if (masini.get(i).isRulata()) {
                 filtrMas.add(this.masini.get(i));
             }
         }
