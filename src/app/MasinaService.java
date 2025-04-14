@@ -1,5 +1,6 @@
 package app;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,65 +8,37 @@ import java.util.Scanner;
 
 public class MasinaService {
 
-    public List<Masina> masini = new ArrayList<Masina>();
-
-    public void load() {
-        Masina m1 = new Masina();
-        m1.id = 1;
-        m1.color = "rosu";
-        m1.marca = "Porsche";
-        m1.pret = 200000;
-        m1.rulata = false;
-        m1.year = 2025;
-        Masina m2 = new Masina();
-        m2.id = 2;
-        m2.color = "albastru";
-        m2.marca = "BMW";
-        m2.pret = 100000;
-        m2.rulata = true;
-        m2.year = 2020;
-        Masina m3 = new Masina();
-        m3.id = 3;
-        m3.color = "negru";
-        m3.marca = "Audi";
-        m3.pret = 50000;
-        m3.rulata = true;
-        m3.year = 2015;
-        Masina m4 = new Masina();
-        m4.id = 4;
-        m4.color = "rosu";
-        m4.marca = "BMW";
-        m4.pret = 6000;
-        m4.rulata = false;
-        m4.year = 2009;
-        Masina m5 = new Masina();
-        m5.id = 5;
-        m5.color = "alb";
-        m5.marca = "BMW";
-        m5.pret = 15000;
-        m5.rulata = true;
-        m5.year = 2014;
-        Masina m6 = new Masina();
-        m6.id = 6;
-        m6.color = " ";
-        m6.marca = " ";
-
-        this.masini.add(m1);
-        this.masini.add(m2);
-        this.masini.add(m3);
-        this.masini.add(m4);
-        this.masini.add(m5);
-        this.masini.add(m6);
+    private List<Masina> masini;
+    private File file;
+    public MasinaService() {
+        masini=new ArrayList<Masina>();
+        this.file=new File("C:\\mycode\\oop\\incapsulare\\Teorie Incapsulare\\Masini");
+        this.load();
+    }
+    private void load() {
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Masina masina = new Masina(line);
+                this.masini.add(masina);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+
     //todo metoda afisare masini
-    public void afisareMasini() {
+    public void afisare() {
         for (int i = 0; i < masini.size(); i++) {
             System.out.println(this.masini.get(i).descriere());
         }
     }
 
-    //todo metoda ce returneaza masina cea mai scumpa
+    public void addMasina(Masina masina) {
+        this.masini.add(masina);
+    }
 
     public Masina ceaMaiScumpa() {
         Masina pretMax = masini.getFirst();
@@ -122,7 +95,7 @@ public class MasinaService {
         return pretMin;
     }
 
-    public void pretCrescator() {
+    public void pretCrescator()     {
 
         for (int i = 0; i < masini.size() - 1; i++) {
             for (int j = 0; j < masini.size() - i - 1; j++) {

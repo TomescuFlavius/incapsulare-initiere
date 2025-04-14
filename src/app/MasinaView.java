@@ -7,11 +7,15 @@ import java.util.Scanner;
 
 public class MasinaView {
 
-    public MasinaService masinaService = new MasinaService();
-    public Scanner scanner = new Scanner(System.in);
+    private MasinaService masinaService;
+    private Scanner scanner;
+    public MasinaView() {
+        this.masinaService = new MasinaService();
+        this.scanner = new Scanner(System.in);
+        this.play();
+    }
 
-
-    public void meniu() {
+    private void meniu() {
 
         System.out.println("1->afisare masini");
         System.out.println("2->masina scumpa");
@@ -25,8 +29,7 @@ public class MasinaView {
         System.out.println("10->update masina dupa Id");
         System.out.println("11->lista dupa marca selectata");
         System.out.println("12-> filtrare detaliata");
-        //todo:crud create read update delete
-        //todo:manaeger de filtrari
+
 
 
     }
@@ -34,7 +37,7 @@ public class MasinaView {
 
     public void play() {
         boolean running = true;
-        this.masinaService.load();
+
         while (running) {
             meniu();
 
@@ -83,137 +86,137 @@ public class MasinaView {
     }
 
 
-    public void afisareCeaMaiScumpaMasina() {
-
-
-        Masina masina = this.masinaService.ceaMaiScumpa();
-
-
-        System.out.println(masina.descriere());
-
-    }
-
-    public void afisarePorsche() {
-        this.masinaService.afisarePorsche();
-    }
-
-    public void afisareBMW() {
-        this.masinaService.afisareBMW();
-    }
-
-    public void afisareMasini() {
-        this.masinaService.afisareMasini();
-    }
-
-    public void pretDescrescator() {
-        this.masinaService.pretDescrescator();
-    }
-
-    public void afisareCeaMaiIeftinaMasina() {
-        Masina m = this.masinaService.ceaMaiIeftina();
-        System.out.println(m.descriere());
-    }
-
-    public void pretCrescator() {
-        this.masinaService.pretCrescator();
-    }
-
-    public void addCar() {
-
-        System.out.println("Introduceti detaliile masini cu ,intre ele: marca,culoare,an,rulata,pret");
-
-        String prop = scanner.nextLine();
-        String[] cuvinte = prop.split(",");
-        Masina m = this.masinaService.getMasinaByColorAndMarca(cuvinte[0], cuvinte[1]);
-
-        if (m != null) {
-            //todo:mesaj
-            System.out.println("Masina exista deja");
-            return;
-        }
-
-        //todo:adaugare
-
-        Boolean addedCar = this.masinaService.addCar(
-                cuvinte[0],
-                cuvinte[1],
-                Integer.parseInt(cuvinte[2]),
-                Boolean.parseBoolean(cuvinte[3]),
-                Double.parseDouble(cuvinte[4]));
-
-        if (!addedCar) {
-
-            System.out.println("Eroare la adaugare");
-            return;
-        }
-
-        System.out.println("Masina a fost  adaugata cu succes");
-
-
-    }
-
-    public void removeCar() {
-        System.out.println("Introdu ID-ul masinii pe care vrei sa o elimini:");
-        int id = Integer.parseInt(scanner.nextLine());
-        Boolean removedCar = this.masinaService.removeCar(id);
-        if (!removedCar) {
-            System.out.println("Eroare la eliminare");
-            return;
-        }
-        System.out.println("Masina a fost  eliminata cu succes");
-    }
-
-    public void updateCar() {
-        System.out.println("Introdu ID-ul mașinii pe care vrei să o actualizezi:");
-        int id = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Introdu noile detalii separate prin virgula: marca, culoare, an, rulata, pret");
-        String prop = scanner.nextLine();
-        String[] cuvinte = prop.split(",");
-
-        boolean updated = this.masinaService.updateCar(
-                id,
-                cuvinte[0],
-                cuvinte[1],
-                Integer.parseInt(cuvinte[2]),
-                Boolean.parseBoolean(cuvinte[3]),
-                Double.parseDouble(cuvinte[4])
-        );
-
-        if (!updated) {
-            System.out.println("Eroare la actualizare! ID-ul nu exista.");
-            return;
-        }
-
-        System.out.println("Mașina a fost actualizata cu succes!");
-    }
-    public void filtrareMarca() {
-        System.out.println("Marca care te intereseaza:");
-        String marca = scanner.nextLine();
-
-        List<Masina>masini=this.masinaService.filtrariMarca(marca);
-
-
-        for (Masina m : masini) {
-            System.out.println(m.descriere());
-        }
-
-
-    }
-    public void filtrareDetaliata(){
-
-
-        Filtru filtru= new Filtru();
-
-        filtru.marca="BMW";
-        filtru.rulata=true;
-
-        List<Masina> masini=this.masinaService.filtrare(filtru);
-
-        for (Masina m : masini) {
-            System.out.println(m.descriere());
-        }
-
-
-    }
+//    public void afisareCeaMaiScumpaMasina() {
+//
+//
+//        Masina masina = this.masinaService.ceaMaiScumpa();
+//
+//
+//        System.out.println(masina.descriere());
+//
+//    }
+//
+//    public void afisarePorsche() {
+//        this.masinaService.afisarePorsche();
+//    }
+//
+//    public void afisareBMW() {
+//        this.masinaService.afisareBMW();
+//    }
+//
+//    public void afisareMasini() {
+//        this.masinaService.afisareMasini();
+//    }
+//
+//    public void pretDescrescator() {
+//        this.masinaService.pretDescrescator();
+//    }
+//
+//    public void afisareCeaMaiIeftinaMasina() {
+//        Masina m = this.masinaService.ceaMaiIeftina();
+//        System.out.println(m.descriere());
+//    }
+//
+//    public void pretCrescator() {
+//        this.masinaService.pretCrescator();
+//    }
+//
+//    public void addCar() {
+//
+//        System.out.println("Introduceti detaliile masini cu ,intre ele: marca,culoare,an,rulata,pret");
+//
+//        String prop = scanner.nextLine();
+//        String[] cuvinte = prop.split(",");
+//        Masina m = this.masinaService.getMasinaByColorAndMarca(cuvinte[0], cuvinte[1]);
+//
+//        if (m != null) {
+//            //todo:mesaj
+//            System.out.println("Masina exista deja");
+//            return;
+//        }
+//
+//        //todo:adaugare
+//
+//        Boolean addedCar = this.masinaService.addCar(
+//                cuvinte[0],
+//                cuvinte[1],
+//                Integer.parseInt(cuvinte[2]),
+//                Boolean.parseBoolean(cuvinte[3]),
+//                Double.parseDouble(cuvinte[4]));
+//
+//        if (!addedCar) {
+//
+//            System.out.println("Eroare la adaugare");
+//            return;
+//        }
+//
+//        System.out.println("Masina a fost  adaugata cu succes");
+//
+//
+//    }
+//
+//    public void removeCar() {
+//        System.out.println("Introdu ID-ul masinii pe care vrei sa o elimini:");
+//        int id = Integer.parseInt(scanner.nextLine());
+//        Boolean removedCar = this.masinaService.removeCar(id);
+//        if (!removedCar) {
+//            System.out.println("Eroare la eliminare");
+//            return;
+//        }
+//        System.out.println("Masina a fost  eliminata cu succes");
+//    }
+//
+//    public void updateCar() {
+//        System.out.println("Introdu ID-ul mașinii pe care vrei să o actualizezi:");
+//        int id = Integer.parseInt(scanner.nextLine());
+//
+//        System.out.println("Introdu noile detalii separate prin virgula: marca, culoare, an, rulata, pret");
+//        String prop = scanner.nextLine();
+//        String[] cuvinte = prop.split(",");
+//
+//        boolean updated = this.masinaService.updateCar(
+//                id,
+//                cuvinte[0],
+//                cuvinte[1],
+//                Integer.parseInt(cuvinte[2]),
+//                Boolean.parseBoolean(cuvinte[3]),
+//                Double.parseDouble(cuvinte[4])
+//        );
+//
+//        if (!updated) {
+//            System.out.println("Eroare la actualizare! ID-ul nu exista.");
+//            return;
+//        }
+//
+//        System.out.println("Mașina a fost actualizata cu succes!");
+//    }
+//    public void filtrareMarca() {
+//        System.out.println("Marca care te intereseaza:");
+//        String marca = scanner.nextLine();
+//
+//        List<Masina>masini=this.masinaService.filtrariMarca(marca);
+//
+//
+//        for (Masina m : masini) {
+//            System.out.println(m.descriere());
+//        }
+//
+//
+//    }
+//    public void filtrareDetaliata(){
+//
+//
+//        Filtru filtru= new Filtru();
+//
+//        filtru.marca="BMW";
+//        filtru.rulata=true;
+//
+//        List<Masina> masini=this.masinaService.filtrare(filtru);
+//
+//        for (Masina m : masini) {
+//            System.out.println(m.descriere());
+//        }
+//
+//
+//    }
 }
