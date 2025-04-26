@@ -12,7 +12,12 @@ public class Masina {
     private double pret;
 
     public Masina() {
-        System.out.println("Constructor gol");
+        this.id = 0;
+        this.marca = "";
+        this.color = "";
+        this.year = 0;
+        this.rulata = false;
+        this.pret = 0;
     }
 
     public Masina(int id, String marca, String color, int year, boolean rulata, double pret) {

@@ -166,21 +166,21 @@ public class MasinaService {
         return false;
     }
 
-//    public boolean updateCar(int id, String marca, String color, int year, boolean rulata, double pret) {
-//        Masina masina = getMasinaById(id);
-//
-//        if (masina == null) {
-//            return false;
-//        }
-//
-//        masina.get = marca;
-//        masina.color = color;
-//        masina.year = year;
-//        masina.rulata = rulata;
-//        masina.pret = pret;
-//
-//        return true;
-//    }
+    public boolean updateCar(int id, String marca, String color, int year, boolean rulata, double pret) {
+        Masina masina = getMasinaById(id);
+
+        if (masina == null) {
+            return false;
+        }
+
+        masina.setMarca(marca);
+        masina.setColor(color);
+        masina.setYear(year);
+        masina.setRulata(rulata);
+        masina.setPret(pret);
+
+        return true;
+    }
 
     public List<Masina> filtrariMarca(String marca) {
 
@@ -233,13 +233,13 @@ public class MasinaService {
     public List<Masina> filtrare(Filtru filtru) {
         List<Masina> comune = new ArrayList<>();
         comune.addAll(this.masini);
-        if (filtru.marca.length() > 0) {
-            comune = intersectieListe(comune, filtrariMarca(filtru.marca));
+        if (filtru.getMarca().length() > 0) {
+            comune = intersectieListe(comune, filtrariMarca(filtru.getMarca()));
         }
-        if(filtru.pretMin>=0&&filtru.pretMax>=0){
-            comune=intersectieListe(comune,filtrariPret(filtru.pretMin,filtru.pretMax));
+        if(filtru.getPretMax()>=0&&filtru.getPretMax()>=0){
+            comune=intersectieListe(comune,filtrariPret(filtru.getPretMin(),filtru.getPretMax()));
         }
-        if (filtru.rulata)
+        if (filtru.isRulata())
             comune = intersectieListe(comune, filtarariRulata());
         return comune;
 
